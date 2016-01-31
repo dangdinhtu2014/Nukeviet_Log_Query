@@ -5,10 +5,10 @@ You can Log and count query in Nukeviet 4x to file. You can see all quyery to pe
   
   Step 2: Open file includes/footer.php
   
-  search keyword "$db = null;" add this content before it
+  search keyword "$db = null;" add this content before it 
   
   $db->logquery( NV_ROOTDIR . '/. NV_LOGS_DIR . '/query.sql' );// path file log quyery
   
-  $step : open path file log to see query
+  $step 3 : open path file log to see query
   
 
