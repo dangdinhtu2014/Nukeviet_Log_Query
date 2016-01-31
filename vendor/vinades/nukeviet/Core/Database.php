@@ -22,6 +22,7 @@ class Database extends pdo
     public $user = '';
     public $dbtype = '';
 	public $logquery = '';
+	public $path_log_file = false;
 	
     private $_select = '';
     private $_from = '';
@@ -451,21 +452,21 @@ class Database extends pdo
 	
 	public function query( $sql ) 
 	{
-		$this->querycontent.=$sql. "\n\n";	
+		if( $this->path_log_file )  file_put_contents( $this->path_log_file, $sql. "\n\n", FILE_APPEND );
 		++$this->querycount;
 		return parent::query( $sql );
 		
 	}
 	public function prepare( $sql ) 
 	{
-		$this->querycontent.=$sql. "\n\n";
+		if( $this->path_log_file )  file_put_contents( $this->path_log_file, $sql. "\n\n", FILE_APPEND );
 		++$this->querycount;
 		return parent::prepare( $sql );
 		
 	}
 	public function exec( $sql ) 
 	{
-		$this->querycontent.= $sql. "\n\n";
+		if( $this->path_log_file )  file_put_contents( $this->path_log_file, $sql. "\n\n", FILE_APPEND );
 		++$this->querycount;
 		return parent::exec( $sql );
 		
@@ -476,10 +477,10 @@ class Database extends pdo
         return $this->querycount;
     }
 	
-	public function logquery( $path_file )
-    {	
-		file_put_contents( $path_file, $this->querycontent, FILE_APPEND );
-		file_put_contents( $path_file, 'Total query: ' . $this->getcount() . "\n\n", FILE_APPEND );	 
-    }
+	public function logquery( )
+    {		
+		if( $this->path_log_file ) file_put_contents( $this->path_log_file, 'Total query: ' . $this->getcount() . "\n\n", FILE_APPEND );	 
+		
+	}
 	
 }
