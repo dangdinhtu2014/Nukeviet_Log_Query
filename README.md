@@ -7,7 +7,8 @@ You can Log and count query in Nukeviet 4x to file and see all query to performa
   
   search keyword "$db = null;" add this content before it 
   
-  $db->logquery( NV_ROOTDIR . '/. NV_LOGS_DIR . '/query.sql' );// path file log quyery
+    $db->path_log_file = NV_ROOTDIR . '/. NV_LOGS_DIR . '/query.sql';// path file log quyery
+    $db->logquery();
   
   $step 3 : open path file log to see query
   
